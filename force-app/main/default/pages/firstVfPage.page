@@ -1,0 +1,223 @@
+<!--apex:page standardController="Account" recordSetVar="accounts" 
+tabstyle="account" sidebar="false">
+    
+    <apex:pageBlock title="Account with related data">
+                 <apex:tabPanel switchType="client" selectedTab="tabdetails" 
+        id="AccountTabPanel" tabClass='activeTab' 
+        inactiveTabClass='inactiveTab'>
+            <apex:tab label="Account Details" name="AccDetails" id="tabdetails">
+                <apex:detail relatedList="false" title="true"/>
+            </apex:tab>
+            <apex:tab label="Contact" name="ConDetails">
+                <apex:relatedList subject="{!account}" list="contacts" />
+            </apex:tab>
+            <apex:tab label="Opportunity" name="OppDetails" id="tabOpportunity">
+                <apex:relatedList subject="{!account}" list="opportunities" />
+            </apex:tab>
+        </apex:tabPanel>
+       
+        <apex:pageBlockSection title="Account data">
+
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+     -->
+
+    <!--apex:form>
+        <apex:pageBlock title="Edit Account: {!Account.Name}">
+            <apex:pageBlockSection title="Account Details" columns="1">
+                <apex:inputField value="{!Account.Name}" tabOrderHint="4"/>
+                <apex:inputField value="{!Account.Website}" tabOrderHint="1"/>
+                <apex:inputField value="{!Account.Industry}" tabOrderHint="2"/>
+                <apex:inputField value="{!Account.AnnualRevenue}" tabOrderHint="3"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form-->
+    <!--
+    <apex:form >
+        <apex:pageBlock>
+            <apex:outputPanel id="industryPicker">
+                <apex:outputField value="{!account.industry}">
+                    <apex:inlineEditSupport event="ondblClick"></apex:inlineEditSupport>
+                </apex:outputField>
+                <apex:outputField value="{!account.subcategories__c}">
+                    <apex:inlineEditSupport event="ondblClick"></apex:inlineEditSupport>
+                </apex:outputField>
+            </apex:outputPanel>
+            <apex:commandButton value="Referesh PickList" reRender="industryPicker"></apex:commandButton>
+        </apex:pageBlock>
+    </apex:form>
+    -->
+
+    <!--
+    <apex:pageBlock title="{!account.name} Detials">
+        <apex:detail subject="{!account.Id}" relatedList="false" />
+    </apex:pageBlock>
+    
+    <apex:form id="thePageBlock">
+        <apex:pageBlock title="Inline Editing">
+            <apex:pageBlockTable value="{!records}" var="record" id="pageBlockTable">
+                <apex:column >
+                    <apex:outputField value="{!record.name}" id="AccountNameDOM">
+                        <apex:facet name="header">Name</apex:facet>
+                    </apex:outputField>
+                </apex:column>
+                <apex:column >
+                    <apex:outputField value="{!record.phone}" id="AccountPhoneDOM">
+                        <apex:facet name="header">Phone</apex:facet>
+                    </apex:outputField>
+                </apex:column>
+                <apex:column >
+                    <apex:outputField value="{!record.website}" id="AccountWebsiteDOM">
+                        <apex:facet name="header">Site</apex:facet>
+                    </apex:outputField>
+                </apex:column>
+                <apex:inlineEditSupport event="ondblClick" showOnEdit="saveButton, cancelButton" hideOnEdit="editButton"></apex:inlineEditSupport>
+            </apex:pageBlockTable>
+            <apex:pageBlockButtons>
+                <apex:commandButton value="Save" action="{!save}" id="saveButton"></apex:commandButton>
+                <apex:commandButton value="Edit" action="{!edit}" id="editButton"></apex:commandButton>
+                <apex:commandButton value="Cancel" action="{!cancel}" id="cancelButton"></apex:commandButton>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    
+    <apex:pageBlock title="Contact table">
+        <apex:pageBlockTable value="{!account.Contacts}" var="con">
+            <apex:column value="{!con.Name}"/>
+            <apex:column value="{!con.MailingCity}"/>
+            <apex:column value="{!con.Phone}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+   <apex:form > 
+    <apex:pageBlock >
+        <apex:pageMessages />
+        <apex:pageBlockButtons>
+            <apex:commandButton value="Save" action="{!save}"/>
+        </apex:pageBlockButtons>
+        
+        <apex:pageBlockTable value="{!accounts}" var="a">
+            <apex:column value="{!a.name}"/>
+            
+            <apex:column headerValue="Industry">
+                <apex:inputField value="{!a.Industry}"/>
+            </apex:column>
+        
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+   </apex:form>
+   
+
+   <apex:pageBlock title="Hello {!$User.FirstName}!">
+        You are displaying values from the {!account.name} account and a separate contact
+        that is specified by a query string parameter.
+    </apex:pageBlock>
+    <apex:pageBlock title="Contacts">
+        <apex:dataTable value="{!account.Contacts}" var="contact" cellPadding="4" border="1">
+              <apex:column >
+               <apex:facet name="header">Name</apex:facet>
+                {!contact.Name}
+              </apex:column>
+              <apex:column >
+               <apex:facet name="header">Phone</apex:facet>
+              {!contact.Phone}
+              </apex:column>
+        </apex:dataTable>
+    </apex:pageBlock>
+    <apex:detail subject="{!$CurrentPage.parameters.cid}" relatedList="false" title="false"/> 
+</apex:page>
+
+<apex:page standardController="Account">
+    <apex:pageBlock title="Hello {!$User.FirstName}!">
+        You are displaying contacts from the {!account.name} account. 
+        Mouse over a contact's name to view his or her details.
+    </apex:pageBlock>
+    <apex:pageBlock title="Contacts">
+        <apex:form >
+            <apex:dataTable value="{!account.Contacts}" var="contact" cellPadding="4" 
+                               border="1">
+                  <apex:column >
+                      <apex:outputPanel>
+                          <apex:actionSupport event="onmouseover" rerender="detail"> 
+                              <apex:param name="cid" value="{!contact.id}"/>
+                          </apex:actionSupport> 
+                          {!contact.Name}
+                      </apex:outputPanel> 
+                  </apex:column>
+            </apex:dataTable>
+        </apex:form>
+    </apex:pageBlock>
+    <apex:outputPanel id="detail">
+        <apex:actionStatus startText="Requesting...">
+            <apex:facet name="stop">
+                <apex:detail subject="{!$CurrentPage.parameters.cid}" relatedList="false" 
+                                title="false"/>
+            </apex:facet>
+        </apex:actionStatus>
+    </apex:outputPanel>
+</apex:page>
+
+<apex:page showHeader="true" tabstyle="Case">
+    <apex:pageMessage severity="error" rendered="{!$User.UITheme = 'Theme3' && 
+                                                    $User.UIThemeDisplayed != 'Theme3'}">
+    We've noticed that the new look and feel is enabled for your organization. 
+    However, you can't take advantage of its brilliance. Please check with 
+    your administrator for possible reasons for this impediment.
+    </apex:pageMessage>
+    <apex:ListViews type="Case" rendered="{!$User.UITheme = 'Theme3' && 
+                                           $User.UIThemeDisplayed = 'Theme3'}"/>
+</apex:page>
+<apex:page standardController="Account" contentType="application/vnd.ms-excel">
+    <apex:pageBlock title="Contacts">
+        <apex:pageBlockTable value="{!account.Contacts}" var="contact">
+            <apex:column value="{!contact.Name}"/>
+            <apex:column value="{!contact.MailingCity}"/>
+            <apex:column value="{!contact.Phone}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>
+
+<apex:page showHeader="false" standardStylesheets="false" doctype="html-5.0">
+ 
+    <apex:outputPanel layout="block" html-data-role="panel" html-data-id="menu">
+        <apex:insert name="menu"/>    
+    </apex:outputPanel>
+ 
+    <apex:outputPanel layout="block" html-data-role="panel" html-data-id="main">
+        <apex:insert name="main"/>    
+    </apex:outputPanel>
+ 
+</apex:page> -->
+
+<apex:page showHeader="false" standardStylesheets="false"
+    standardController="Account" extensions="SaveAsPdfExtension"
+    contentType="{! renderedContentType }" renderAs="{! renderingService }">
+ 
+    <!-- 
+    This page must be called with an Account ID in the URL, e.g.:
+    https://<salesforceInstance>/apex/AccountContactsPdf?id=001D000000JRBet
+    -->
+        
+    <apex:form rendered="{! renderingService != 'PDF' }"
+               style="text-align: right; margin: 10px;">
+        <apex:commandLink action="{! saveToPdf }" value="Save to PDF">
+            <apex:param assignTo="{! renderedFileName }" value="Contact-List.pdf"/>
+        </apex:commandLink>
+        <hr/>
+    </apex:form>
+    
+    <h1>Contacts for {! Account.Name}</h1>
+    
+    <apex:dataTable value="{! Account.Contacts }" var="contact">
+        <apex:column headerValue="Name"  value="{! contact.Name  }"/>
+        <apex:column headerValue="Title" value="{! contact.Title }"/>
+        <apex:column headerValue="Phone" value="{! contact.Phone }"/>
+        <apex:column headerValue="Email" value="{! contact.Email }"/>
+    </apex:dataTable>
+ 
+    <hr/>
+    <!-- A little bit of info about the page's rendering; 
+         see how it changes when saved as a PDF. -->
+    contentType: <apex:outputText value=" {! renderedContentType }"/><br/>
+    renderingService: <apex:outputText value=" {! renderingService }"/><br/>
+</apex:page>

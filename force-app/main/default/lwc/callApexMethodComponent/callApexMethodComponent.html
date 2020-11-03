@@ -1,0 +1,24 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Account Manager" icon-name="standard:account">
+        <div class="slds-m-around_medium">
+            <lightning-input type="number" variant="standard" name="recordCount" label="Number of Record" placeholder="Please enter how many records you want to retrive." onchange={recordCountHandler}></lightning-input>
+            <div class="slds-m-top_medium">
+                <lightning-button variant="brand" label="Get Account" title="getAccount" onclick={getAccounthandle}></lightning-button>
+            </div>
+        </div>
+        <div class="slds-p-around_medium">
+            <ul>
+                <template if:true={accountList} for:each={accountList} for:item="acc" for:index="index">
+                   <li key={acc.Id} style="padding: 10px;">
+                    <div class="slds-p-around_medium lgc-bg">
+                        <lightning-tile label={acc.Name} type="media">
+                            <lightning-icon slot="media" icon-name="standard:account"></lightning-icon>
+                            <p class="slds-truncate" title={acc.Phone}>{acc.Phone}</p>
+                        </lightning-tile>
+                    </div>
+                   </li>
+                </template>
+            </ul>
+        </div>
+    </lightning-card>
+</template>

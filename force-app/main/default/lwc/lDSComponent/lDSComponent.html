@@ -1,0 +1,26 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Account Manager" icon-name="standard:account">
+        <div class="slds-p-around_medium">
+            <lightning-layout multiple-rows>
+                <lightning-layout-item size="12" padding="around-small" small-device-size="12" medium-device-size="12" large-device-size="12" >
+                    <div class="custom-box">
+                        <lightning-input type="text" variant="standard" name="accountName" label="Account Name" placeholder="Please enter account name." onchange={accountNamehandler}></lightning-input>
+                        <lightning-input type="phone" variant="standard" name="accountPhone" label="Account Phone" placeholder="Please enter account phone." onchange={accountPhonehandler}></lightning-input>
+                        <lightning-input type="url" variant="standard" name="accountSite" label="Account Site" placeholder="Please enter account site." onchange={accountSitehandler}></lightning-input>
+                        <div class="slds-m-top_medium">
+                            <lightning-button variant="brand" label="Create Account" title="Create Account" onclick={accountCreateHandler}></lightning-button>
+                        </div>
+                        
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" padding="around-small" small-device-size="12" medium-device-size="12" large-device-size="12">
+                    <div class="custom-box">
+                        <p><lightning-formatted-text value ={getName}></lightning-formatted-text></p>
+                        <p><lightning-formatted-phone value ={getPhone}></lightning-formatted-phone></p>
+                        <p><lightning-formatted-url value ={getSite}></lightning-formatted-url></p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-card>
+</template>

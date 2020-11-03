@@ -1,0 +1,12 @@
+<template>
+    
+        <lightning-card  title="Maker Group" icon-name="standard:account">
+            <div class="slds-p-around_medium">
+                <lightning-input type="text" label="Check box value" placeholder="Please enter checkbox value" onchange={valueChangeHandler}></lightning-input>
+                <lightning-button variant="brand" label="Select checkbox" title="Select checkbox" onclick={selectCheckboxHandler}></lightning-button>
+                
+                <c-call-child-method-from-parent></c-call-child-method-from-parent>
+            </div>
+        </lightning-card>
+    
+</template>

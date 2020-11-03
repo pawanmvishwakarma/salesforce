@@ -1,0 +1,41 @@
+<template>
+    <lightning-card title="Meeting Rooms" icon-name="standard:account">
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="6" padding="around-small" small-device-size="3" medium-device-size="6" large-device-size="3" >
+                <div class="custom-box">
+                    <ul>
+                        <!-- This code use to send data to child component without slot -->
+                        <template for:each={meetingRooms} for:item="room" for:index="index">
+                           <li key={room.roomName} style="padding: 10px;">
+                               <!-- If we dont want to add event listner in js file then add here -->
+                               <!--c-meeting-room meeting-room-info={room} ontileclick={onTileSelectHandler}></c-meeting-room-->
+
+
+                               <!-- If we want to add event listner the we have to remove it from tag -->
+                               <c-meeting-room meeting-room-info={room}></c-meeting-room>
+                           </li>
+                        </template>
+            
+                        <!-- This is used the slot no need to pass data to child component -->
+                        <!--template for:each={meetingRooms} for:item="room" for:index="index">
+                           <li key={room.roomName} style="padding: 10px;">
+                               <c-meeting-room>
+                                    <lightning-tile label={room.roomName} slot="roomInfo" href="/path/to/somewhere">
+                                        <p class="slds-truncate" title={room.roomCapacity}>Room Capacity is : {room.roomName}</p>
+                                    </lightning-tile>
+                               </c-meeting-room>
+                           </li>
+                        </template-->
+                    </ul>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="around-small" small-device-size="3" medium-device-size="6" large-device-size="3">
+                <div class="custom-box">
+                    You have selected : {selectedMeetingRoom}
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+        
+    </lightning-card>
+   
+</template>

@@ -1,0 +1,12 @@
+<template>
+    <div class="slds-p-around_medium lgc-bg" onclick={tileClickedHandler}>
+
+        <!-- When we get data from parent component without slot -->
+        <lightning-tile label={meetingRoomInfo.roomName} href="/path/to/somewhere">
+            <p class="slds-truncate" title={meetingRoomInfo.roomCapacity}>Room Capacity is : {meetingRoomInfo.roomName}</p>
+        </lightning-tile>
+
+        <!-- This when we no need to get data from parent slot use -->
+        <!--slot name="roomInfo"></slot-->
+    </div>
+</template>
